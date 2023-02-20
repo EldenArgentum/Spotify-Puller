@@ -2,16 +2,16 @@ import requests
 import base64
 import requests
 import json
+import KeyStuff as KS
 
 # user_id = str(input("What is your Spotify ID?"))
 
 # user_id = https://open.spotify.com/user/grmujbo3xangppoykzkko5cn7?si=99200bfd86144eb8
 # url = f"https://api.spotify.com/v1/users/{user_id}"
-# redirect_uri = "http://127.0.0.1:5500/GitKraken%20Stuff/Spotify%20Puller/"
 
-CLIENT_SECRET = "fcdb0dc9da2f41e8ad3c2c506fccf12f"
-ACCESS_TOKEN = "BQCLbkmCodTHWScPXYb3JoQLz6UPTd1WOjZOxlOiIUTXmRY2m-FV53F-NPpGQz2Dp2hYZ3mUIvIvvzj-38fR-WaAVZNFIIgkbFzQ8Dy2VrsSpCCEiw5uTpBuKYx8GuQuwox83zybbP62mOzhXStVTwMbXir-fxhwhskQ0vxeoE8EAYrQVr2ijMv6dzQCndHkMS7IAUlONBb3cfb3ig"
-CLIENT_ID = "9f9d70512af64b7c9f3775b8de528ffc"
+CLIENT_SECRET = KS.CLIENT_SECRET
+ACCESS_TOKEN = KS.ACCESS_TOKEN
+CLIENT_ID = KS.CLIENT_ID
 
 # response = requests.get(url)
 
@@ -54,4 +54,4 @@ def search_artist(token, artist_name):
 
 token = get_token()
 
-search_artist(token, "BTS")
+search_artist(token, "Eminem")
