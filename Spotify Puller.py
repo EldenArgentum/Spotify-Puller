@@ -45,13 +45,40 @@ def search_artist(token, artist_name):
     query_url = url + query
     result = requests.get(query_url, headers = headers)
     json_result = json.loads(result.content)['artists']['items']
-    json_result_listeners = json.loads(result.content)['artists']['items'][0]['followers']['total']
-    json_result_genres = json.loads(result.content)['artists']['items'][0]['genres']
-    print(json_result)
-    print(f"{artist_name} has {json_result_listeners} followers.")
-    print(f"{artist_name}'s music is under the genres {json_result_genres}.")
+    # json_result_listeners = json.loads(result.content)['artists']['items'][0]['followers']['total']
+    # json_result_genres = json.loads(result.content)['artists']['items'][0]['genres']
     
+    if len(json_result) == 0:
+        print("There are no artists with this name.")
+        return None
+    return json_result
+    # print(f"{artist_name} has {json_result_listeners} followers.")
+    # print(f"{artist_name}'s music is under the genres {json_result_genres}.")
+
+def artist_followers(token):
+    artist_name = str(input("What artist would you like to lookup?\t"))
+    artist_search = search_artist(token, artist_name)
+    if artist_search == None:
+        print("There are no artists with that name.")
+        return None
+    return f"{artist_name} has {artist_search[0]['followers']['total']} followers."
+
+def artist_genres(token):
+    artist_name = str(input("What artist would you like to lookup?\t"))
+    artist_search = search_artist(token, artist_name)
+    if artist_search == None:
+        print("There are no artists with that name.")
+        return None
+    return f"{artist_name}'s music is under the genres {artist_search[0]['genres']}."
 
 token = get_token()
 
-search_artist(token, "Eminem")
+artistFollowers = artist_followers(token)
+print(artistFollowers)
+
+artistGenres =  artist_genres(token)
+print(artistGenres)
+
+# result = search_artist(token, "Eminem")
+
+# print(result)
