@@ -14,6 +14,7 @@ ACCESS_TOKEN = KS.ACCESS_TOKEN
 CLIENT_ID = KS.CLIENT_ID
 
 # response = requests.get(url)
+artist_name = ""
 
 def get_token():
     auth_string = CLIENT_ID + ":" + CLIENT_SECRET
@@ -56,19 +57,31 @@ def search_artist(token, artist_name):
     # print(f"{artist_name}'s music is under the genres {json_result_genres}.")
 
 def artist_followers(token):
-    artist_name = str(input("What artist would you like to lookup?\t"))
+    global artist_name
+    
+    if artist_name == "":   #So it doesn't have to ask you which artist you are searching for each piece of information
+        artist_name = str(input("What artist would you like to lookup?\t"))
+    
     artist_search = search_artist(token, artist_name)
+    
     if artist_search == None:
         print("There are no artists with that name.")
         return None
+    
     return f"{artist_name} has {artist_search[0]['followers']['total']} followers."
 
 def artist_genres(token):
-    artist_name = str(input("What artist would you like to lookup?\t"))
+    global artist_name
+    
+    if artist_name == "":   #So it doesn't have to ask you which artist you are searching for each piece of information
+        artist_name = str(input("What artist would you like to lookup?\t"))
+    
     artist_search = search_artist(token, artist_name)
+    
     if artist_search == None:
         print("There are no artists with that name.")
         return None
+    
     return f"{artist_name}'s music is under the genres {artist_search[0]['genres']}."
 
 token = get_token()
@@ -78,7 +91,3 @@ print(artistFollowers)
 
 artistGenres =  artist_genres(token)
 print(artistGenres)
-
-# result = search_artist(token, "Eminem")
-
-# print(result)
