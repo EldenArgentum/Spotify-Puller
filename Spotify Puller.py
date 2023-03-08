@@ -3,7 +3,7 @@ import base64
 import requests
 import json
 import KeyStuff as KS
-
+print()
 # user_id = str(input("What is your Spotify ID?"))
 
 # user_id = https://open.spotify.com/user/grmujbo3xangppoykzkko5cn7?si=99200bfd86144eb8
@@ -86,8 +86,23 @@ def artist_genres(token):
 
 token = get_token()
 
-artistFollowers = artist_followers(token)
-print(artistFollowers)
+userInput = ""
 
-artistGenres =  artist_genres(token)
-print(artistGenres)
+print("If, at any time, you would like to quit the program, type Q or q to quit.")
+
+while userInput.upper() != "Q":
+    print()
+    userInput = str(input("What feature would you like to use?\n1: View the amount of monthly listeners of an artist\n2: View the genres for the artist\nType in the number of the feature you would like to use, then click enter.\n"))
+    if userInput == "1":
+        print(artist_followers(token))
+    if userInput == "2":
+        print(artist_genres(token))
+    else:
+        print("Sorry, that isn't an option. Please try again.")
+
+exit()
+# artistFollowers = artist_followers(token)
+# print(artistFollowers)
+
+# artistGenres =  artist_genres(token)
+# print(artistGenres)
