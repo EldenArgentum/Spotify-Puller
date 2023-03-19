@@ -39,6 +39,7 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 def search_artist(token, artist_name):
+    print()
     url = "https://api.spotify.com/v1/search"
     headers = get_auth_header(token)
     query = f"?q={artist_name}&type=artist&limit=1"
@@ -57,6 +58,7 @@ def search_artist(token, artist_name):
     # print(f"{artist_name}'s music is under the genres {json_result_genres}.")
 
 def artist_followers(token):
+    print()
     global artist_name
     
     if artist_name == "":   #So it doesn't have to ask you which artist you are searching for each piece of information
@@ -71,6 +73,7 @@ def artist_followers(token):
     return f"{artist_name} has {artist_search[0]['followers']['total']} followers."
 
 def artist_genres(token):
+    print()
     global artist_name
     
     if artist_name == "":   #So it doesn't have to ask you which artist you are searching for each piece of information
@@ -84,21 +87,59 @@ def artist_genres(token):
     
     return f"{artist_name}'s music is under the genres {artist_search[0]['genres']}."
 
+def get_nth_key(dictionary, n = 0):
+    if n < 0:
+        n += len(dictionary)
+    for i, key in enumerate(dictionary.keys()):
+        if i == n:
+            return key
+
+def select_user_playlist(token):
+    print()
+    url = "https://api.spotify.com/v1/users/"
+    headers = get_auth_header(token)
+    
+    print("In order to find Spotify User ID, go to your profile on the browser, and copy everything after https://open.spotify.com/user/ and before \"?\"")
+    user_id = str(input("What is your Spotify User ID?\t"))
+    print()
+    query = f"{user_id}/playlists?limit=50&offset=0"
+    query_url = url + query
+    
+    result = requests.get(query_url, headers = headers)
+    json_result = json.loads(result.content)
+    
+    # for i in range(len(json_result)):
+        # return
+    # json_result_name = get_nth_key(json_result, 8)
+    
+    for x in json_result['items']:
+        print (x['name'])
+
+    # return json.dumps(json_result, indent = 1)
+    return ""
+
 token = get_token()
 
-userInput = ""
+user_input = ""
 
-print("If, at any time, you would like to quit the program, type Q or q to quit.")
-
-while userInput.upper() != "Q":
+# print("If, at any time, you would like to quit the program, type Q or q to quit.")
+user_input_options = ["1", "2", "3"]
+while True:
     print()
-    userInput = str(input("What feature would you like to use?\n1: View the amount of monthly listeners of an artist\n2: View the genres for the artist\nType in the number of the feature you would like to use, then click enter.\n"))
-    if userInput == "1":
+    user_input = str(input("What feature would you like to use?\n1: View the amount of monthly listeners of an artist\n2: View the genres for the artist\n3: User's playlists\nType in the number of the feature you would like to use, then click enter.\n"))
+    if user_input == "1":
         print(artist_followers(token))
-    if userInput == "2":
+    if user_input == "2":
         print(artist_genres(token))
-    else:
+    if user_input == "3":
+        print(select_user_playlist(token))
+    if user_input == "q" or user_input == "Q":
+        break
+    if user_input not in user_input_options:
         print("Sorry, that isn't an option. Please try again.")
+    
+
+# print(select_user_playlist(token))
 
 exit()
 # artistFollowers = artist_followers(token)
