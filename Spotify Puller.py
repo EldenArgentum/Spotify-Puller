@@ -157,7 +157,7 @@ while True:
     if user_input == "3":
         print(select_user_playlist(token))
     if user_input == "q" or user_input == "Q":
-        print("Thank you for using the program!")
+        print("Thank you for using the program! Keep checking back for more updates!")
         break
     if user_input not in user_input_options:
         print("Sorry, that isn't an option. Please try again.")
