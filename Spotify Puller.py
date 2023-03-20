@@ -113,7 +113,30 @@ def select_user_playlist(token):
     # json_result_name = get_nth_key(json_result, 8)
     
     for x in json_result['items']:
-        print (x['name'])
+        print(x["name"])
+    
+    print()
+    
+    yes_no = str(input("Would you like to export these playlist names into a text file? (y/n)\t"))
+    
+    while True:
+        if yes_no.lower() == "y":
+            f = open("SpotifyPullerPlaylist.txt", 'w')
+            f.write(f"User ID {user_id}'s Playlists:\n")
+            dashes = len(f"User ID {user_id}'s Playlists:\n")
+            f.write("-" * dashes)
+            f.write("\n")
+            for x in json_result["items"]:
+                f.write(x["name"] + "\n")
+            f.close()
+            break
+                
+        elif yes_no.lower() == "n":
+            print("Fine.")
+            break
+        
+        else:
+            print("That's not an option. Please try again.")
 
     # return json.dumps(json_result, indent = 1)
     return ""
@@ -134,6 +157,7 @@ while True:
     if user_input == "3":
         print(select_user_playlist(token))
     if user_input == "q" or user_input == "Q":
+        print("Thank you for using the program!")
         break
     if user_input not in user_input_options:
         print("Sorry, that isn't an option. Please try again.")
